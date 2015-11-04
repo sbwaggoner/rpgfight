@@ -10,5 +10,5 @@ Dice::Dice(int sides) : sides(sides)
 
 Dice::~Dice()
 {
-  delete this;
+ 
 }

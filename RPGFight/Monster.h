@@ -12,5 +12,9 @@ public:
   std::string mtype;
   Monster();
   ~Monster();
+
+  void getDamage(int dmg) {
+    hp -= dmg;
+  }
 };
 
