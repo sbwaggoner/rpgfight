@@ -5,9 +5,7 @@
 
 Monster::Monster()
 {
-  hp = rand() % 20 + 10;
-  str = rand() % 10 + 1;
-  mtype = getMonsterName();
+  initMonster();
 }
 
 

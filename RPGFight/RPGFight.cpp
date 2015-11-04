@@ -22,17 +22,25 @@ int rollDice(Dice dice) {
   return result;
 }
 
-bool rollAgain() {
-  cout << "Roll again? (N to stop)";
+bool getYN(string message, string endval) {
+  cout << message;
 
   string input;
   getline(cin, input);
 
-  return input != "N";
+  return input != endval;
+}
+
+bool rollAgain() {
+  return getYN("Enter to roll again; N to quit.", "N");
+}
+
+bool fightAgain() {
+  return getYN("Enter to fight again; N to quit.", "N");
 }
 
 Monster getMonster() {
-  auto monster = new Monster();
+  Monster *monster = new Monster();
   cout << "You see a " << monster->mtype << ".\n";
   cout << "HP: " << monster->hp << "\n";
   cout << "STR: " << monster->str << "\n";
@@ -40,10 +48,7 @@ Monster getMonster() {
   return *monster;
 }
 
-int main(int argc, char argv[])
-{
-  Dice dice = getDice(6);
-  Monster monster = getMonster();
+void doBattle(Dice dice, Monster monster) {
   do {
     int dmg = rollDice(dice);
     monster.getDamage(dmg);
@@ -52,9 +57,18 @@ int main(int argc, char argv[])
     }
     else {
       cout << "You've defeated the " << monster.mtype << ".\n\n";
+      return;
     }
-  } while (rollAgain());
+  } while (rollAgain() && monster.hp > 0);
+}
+
+int main(int argc, char argv[])
+{
+  do {
+    doBattle(getDice(6), getMonster());
+  } while (fightAgain());
   
+
 	return 0;
 }
 
