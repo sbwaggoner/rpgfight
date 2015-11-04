@@ -24,7 +24,7 @@ public:
   Monster();
   ~Monster();
 
-  void getDamage(int dmg) {
+  void takeDamage(int dmg) {
     hp -= dmg;
   }
 

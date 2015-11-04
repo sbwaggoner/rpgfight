@@ -7,8 +7,10 @@
 #include <cstdlib>
 #include "Dice.h"
 #include "Monster.h"
+#include "utilityfunc.h"
 
 using namespace std;
+using namespace ufunc;
 
 Dice getDice(int sides) {
   auto dice = new Dice(sides);
@@ -20,15 +22,6 @@ int rollDice(Dice dice) {
   cout << "You rolled " << result << ".\n\n";
 
   return result;
-}
-
-bool getYN(string message, string endval) {
-  cout << message;
-
-  string input;
-  getline(cin, input);
-
-  return input != endval;
 }
 
 bool rollAgain() {
@@ -48,17 +41,24 @@ Monster getMonster() {
   return *monster;
 }
 
+void updateHUD(Monster monster, int dmg) {
+  if (monster.hp > 0) {
+    std::string msg = wrapText("The " + monster.mtype + " sustained " + std::to_string(dmg) + " damage and has " + std::to_string(monster.hp) + " HP remaining.");
+    cout << msg;
+  }
+  else {
+    std::string msg = wrapText("You've defeated the " + monster.mtype);
+    cout << msg;
+    return;
+  }
+}
+
 void doBattle(Dice dice, Monster monster) {
   do {
+    system("cls");
     int dmg = rollDice(dice);
-    monster.getDamage(dmg);
-    if (monster.hp > 0) {
-      cout << "The " << monster.mtype << " sustained " << dmg << " damage and has " << monster.hp << " HP remaining.\n\n";
-    }
-    else {
-      cout << "You've defeated the " << monster.mtype << ".\n\n";
-      return;
-    }
+    monster.takeDamage(dmg);
+    updateHUD(monster, dmg);
   } while (rollAgain() && monster.hp > 0);
 }
 
