@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include "Dice.h"
 #include "Monster.h"
+#include "Player.h"
 #include "utilityfunc.h"
 
 using namespace std;
@@ -43,17 +44,17 @@ Monster getMonster() {
 
 void updateHUD(Monster monster, int dmg) {
   if (monster.hp > 0) {
-    std::string msg = wrapText("The " + monster.mtype + " sustained " + std::to_string(dmg) + " damage and has " + std::to_string(monster.hp) + " HP remaining.");
+    string msg = wrapText("The " + monster.mtype + " sustained " + to_string(dmg) + " damage and has " + to_string(monster.hp) + " HP remaining.");
     cout << msg;
   }
   else {
-    std::string msg = wrapText("You've defeated the " + monster.mtype);
+    string msg = wrapText("You've defeated the " + monster.mtype);
     cout << msg;
     return;
   }
 }
 
-void doBattle(Dice dice, Monster monster) {
+void doBattle(Dice dice, Monster monster, Player *player) {
   do {
     system("cls");
     int dmg = rollDice(dice);
@@ -64,10 +65,10 @@ void doBattle(Dice dice, Monster monster) {
 
 int main(int argc, char argv[])
 {
+  auto *player = new Player();
   do {
-    doBattle(getDice(6), getMonster());
+    doBattle(getDice(6), getMonster(), player);
   } while (fightAgain());
-  
 
 	return 0;
 }

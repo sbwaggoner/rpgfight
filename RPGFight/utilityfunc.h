@@ -1,26 +1,27 @@
 #pragma once
 #include <iostream>
 
+using namespace std;
 namespace ufunc {
-  bool getYN(std::string message, std::string endval) {
-    std::cout << message;
+  bool getYN(string message, string endval) {
+    cout << message;
 
-    std::string input;
-    getline(std::cin, input);
+    string input;
+    getline(cin, input);
 
     return input != endval;
   }
 
-  std::string gen_string(std::string character, int length) {
-    std::string str = "";
+  string gen_string(string character, int length) {
+    string str = "";
     for (int x = 0; x < length + 6; x++) {
       str += character;
     }
     return str + "\n";
   }
 
-  std::string wrapText(std::string message) {
-    std::string msg = gen_string("*", message.length());
+  string wrapText(string message) {
+    string msg = gen_string("*", message.length());
     msg += "*  " + message + "  *\n";
     msg += gen_string("*", message.length());
     return msg + "\n";

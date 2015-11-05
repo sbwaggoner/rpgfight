@@ -28,9 +28,13 @@ public:
     hp -= dmg;
   }
 
+  int attack() {
+    return rand() % str + 1;
+  }
+
   void initMonster() {
     hp = rand() % 20 + 10;
-    str = rand() % 10 + 1;
+    str = rand() % 5 + 1;
     mtype = getMonsterName();
   }
 };
